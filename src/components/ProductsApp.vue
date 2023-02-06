@@ -23,7 +23,10 @@ onMounted(async () => {
 </script>
 
 <template>
-	<div class="products-app container">
+	<div v-if="loadingUsers" class="container">
+		<h1>Wczytywanie produktów...</h1>
+	</div>
+	<div v-else class="products-app container">
 		<h1>Produkty</h1>
 		<ProductsGrid
 			:products="usersApiData['best-sales'] ? usersApiData['best-sales'] : []"
