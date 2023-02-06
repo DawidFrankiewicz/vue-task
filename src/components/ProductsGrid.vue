@@ -10,7 +10,7 @@ const { products } = defineProps({
 
 <template>
 	<div v-if="products" class="products-grid">
-		<template v-for="product in products">
+		<template v-for="product in products" :key="product.name">
 			<ProductCard :product="product" />
 		</template>
 	</div>

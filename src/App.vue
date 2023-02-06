@@ -5,7 +5,7 @@ import ProductsApp from "./components/ProductsApp.vue";
 
 <template>
 	<header>
-		<HelloWorld msg="Vue Task - Dawid Frankiewicz" />
+		<HelloWorld msg="Zadanie Vue - Dawid Frankiewicz" />
 	</header>
 
 	<main>

@@ -1,14 +1,38 @@
 <script setup>
+import { ref } from "vue";
+const playAnimationOnAddToCart = ref(false);
 const { product } = defineProps({
 	product: {
 		type: Object,
 		required: true,
 	},
 });
+
+const addToWishlist = () => {
+	product["added-to-wishlist"] = !product["added-to-wishlist"];
+};
+
+const addToCart = () => {
+	console.log(`Dodano do koszyka: ${product.name}`);
+	playAnimationOnAddToCart.value = true;
+	setTimeout(() => {
+		playAnimationOnAddToCart.value = false;
+	}, 1000);
+};
 </script>
 
 <template>
 	<div class="product-card">
+		<div
+			class="product-card__add-to-card-animation"
+			:class="
+				playAnimationOnAddToCart
+					? 'product-card__add-to-card-animation--active'
+					: null
+			"
+		>
+			🛒
+		</div>
 		<div class="product-card__badges-container">
 			<div
 				v-if="product.badges.new"
@@ -29,6 +53,13 @@ const { product } = defineProps({
 				WYPRZEDAŻ KOLEKCJI
 			</div>
 		</div>
+		<button
+			@click="addToWishlist"
+			class="product-card__add-to-wishlist"
+			:class="product['added-to-wishlist'] ? 'wishlisted' : null"
+		>
+			❤
+		</button>
 
 		<img class="product-card__image" :src="product.image" alt="product image" />
 		<div class="product-card__details">
@@ -45,6 +76,7 @@ const { product } = defineProps({
 					>
 				</p>
 			</div>
+			<button @click="addToCart">Dodaj do koszyka</button>
 		</div>
 	</div>
 </template>
@@ -77,6 +109,7 @@ const { product } = defineProps({
 	display: flex;
 	flex-direction: column;
 }
+
 .product-card__badge {
 	background-color: vars.$color-black;
 	color: vars.$color-white;
@@ -94,6 +127,31 @@ const { product } = defineProps({
 	}
 	&:last-child {
 		border-end-end-radius: 18px;
+	}
+}
+
+.product-card__add-to-wishlist {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 1.5rem;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	border-radius: 10px;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	color: vars.$color-tertiary;
+	background-color: vars.$color-white;
+	border: 0;
+	cursor: pointer;
+	&.wishlisted {
+		color: vars.$color-primary;
+		box-shadow: 0 0 3px 1px vars.$color-primary;
+	}
+	&:hover {
+		color: vars.$color-tertiary-dark;
 	}
 }
 
@@ -119,6 +177,7 @@ const { product } = defineProps({
 	align-items: center;
 	gap: 1em;
 }
+
 .product-card__image {
 	width: 100%;
 	height: 200px;
@@ -134,10 +193,41 @@ const { product } = defineProps({
 	border-radius: 5px;
 	padding: 0.2em 0.5em;
 }
+
 .product-price-tag__regular {
 	text-decoration: line-through;
 	color: vars.$color-tertiary;
 	font-size: 0.6em;
 	margin-right: 0.3em;
+}
+
+@keyframes blink {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+.product-card__add-to-card-animation {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2rem;
+	pointer-events: none;
+	color: vars.$color-white;
+	background-color: rgba(vars.$color-primary, 0.7);
+	opacity: 0;
+	&.product-card__add-to-card-animation--active {
+		animation: blink 1s ease-in-out;
+	}
 }
 </style>
