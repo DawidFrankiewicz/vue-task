@@ -1,0 +1,34 @@
+@use "./variables" as vars;
+* {
+	box-sizing: border-box;
+}
+body {
+	font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	background-color: vars.$color-secondary;
+	color: vars.$color-tertiary-dark;
+	margin: 0;
+}
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 1em;
+}
+
+a {
+	text-decoration: none;
+	color: vars.$color-primary;
+	transition: 0.4s;
+	@media (hover: hover) {
+		&:hover {
+			background-color: rgba(vars.$color-primary, 0.2);
+		}
+	}
+}
+
+h1,
+h2,
+h3 {
+	color: vars.$color-primary;
+}
