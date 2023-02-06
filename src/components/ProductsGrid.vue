@@ -17,10 +17,11 @@ const { products } = defineProps({
 </template>
 
 <style lang="scss" scoped>
-@use "../assets/_variables.scss" as vars;
 .products-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	gap: 1rem;
+	@media screen and (min-width: 450px) {
+		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+	}
 }
 </style>
